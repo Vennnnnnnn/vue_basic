@@ -53,19 +53,25 @@
 
 <body>
     <div id="app">
+        <p v-for="number in 10">
+            {{number}}
+        </p>
         <div class="cart">
             <h5>shopping cart</h5>
-            <div class="cartItem">
-                <img :src="cartList[0]['img']" alt="">
+            <div class="cartItem" 
+            v-for="(carItem, carIndex) in carList"
+            :key="cartItem['id']"
+            >
+                <img :src="carItem['img']" alt="">
                 <div>
-                    <h6>{{cartList[0]['title']}}</h6>
-                    <p>{{cartList[0]['subTitle']}}</p>
-                    <p>＄{{cartList[0]['price']}}</p>
+                    <h6>{{carItem['title']}}</h6>
+                    <p>{{carItem['subTitle']}}</p>
+                    <p>＄{{carItem['price']}}</p>
                 </div>
                 <div>
-                    <button @click="reduce(0)">-</button>
-                    {{cartList[0]['count']}}
-                    <button @click="add(0)">+</button>
+                    <button @click="reduce(carIndex)">-</button>
+                    {{carItem['count']}}
+                    <button @click="add(carIndex)">+</button>
                 </div>
                 <button>X</button>
             </div>
@@ -106,6 +112,14 @@
                             subTitle: 'ddd',
                             price: 200,
                             count: 2,
+                            img: "/images/2.png"
+                        },
+                        {
+                            id: 3,
+                            title: 'vvv',
+                            subTitle: 'aaa',
+                            price: 300,
+                            count: 3,
                             img: "/images/2.png"
                         },
                     ]
