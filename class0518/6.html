@@ -53,41 +53,26 @@
 
 <body>
     <div id="app">
-        <p v-for="number in 10">
-            {{number}}
-        </p>
+        <!-- <p v-for="number in 10" clas="page">{{number}}</p> -->
         <div class="cart">
             <h5>shopping cart</h5>
-            <div class="cartItem" 
-            v-for="(carItem, carIndex) in carList"
-            :key="cartItem['id']"
-            >
-                <img :src="carItem['img']" alt="">
+
+            <div class="cartItem" v-for="(cartItem, cartIndex) in cartList" :key="cartItem['id']">
+                <img :src="cartItem['img']" alt="">
                 <div>
-                    <h6>{{carItem['title']}}</h6>
-                    <p>{{carItem['subTitle']}}</p>
-                    <p>＄{{carItem['price']}}</p>
+                    <h6>{{cartItem['title']}}</h6>
+                    <p>{{cartItem['subTitle']}}</p>
+                    <p>＄{{cartItem['price']}}</p>
                 </div>
                 <div>
-                    <button @click="reduce(carIndex)">-</button>
-                    {{carItem['count']}}
-                    <button @click="add(carIndex)">+</button>
+                    <button @click="reduce(cartIndex)">-</button>
+                    {{cartItem['count']}}
+                    <button @click="add(cartIndex)">+</button>
                 </div>
                 <button>X</button>
             </div>
-            <div class="cartItem">
-                <img :src="cartList[1]['img']" alt="">
-                <div>
-                    <h6>{{cartList[1]['title']}}</h6>
-                    <p>{{cartList[1]['subTitle']}}</p>
-                    <p>＄{{cartList[1]['price']}}</p>
-                </div>
-                <div>
-                    <button @click="reduce(1)">-</button>
-                    {{cartList[1]['count']}}
-                    <button @click="add(1)">+</button>
-                </div>
-                <button>X</button>
+            <div>
+                Total: $ {{total}}
             </div>
         </div>
         <!-- <div class="form"></div> -->
@@ -100,29 +85,39 @@
                     cartList: [
                         {
                             id: 1,
-                            title: 'aaa',
-                            subTitle: 'bbb',
-                            price: 100,
+                            title: '日式 極簡樸風 21.5cm 不銹鋼主餐刀│玫瑰金│單品',
+                            subTitle: '牛排刀',
+                            price: 198,
                             count: 1,
-                            img: "/images/1.png"
+                            img: "/imges/638225120384670000 (1).jpg"
                         },
                         {
                             id: 2,
-                            title: 'ccc',
-                            subTitle: 'ddd',
-                            price: 200,
-                            count: 2,
-                            img: "/images/2.png"
-                        },
-                        {
-                            id: 3,
-                            title: 'vvv',
-                            subTitle: 'aaa',
-                            price: 300,
-                            count: 3,
-                            img: "/images/2.png"
+                            title: '歐式 弧曲稜鐵 22.5cm 主餐刀｜黑銀｜單品',
+                            subTitle: '牛排刀',
+                            price: 250,
+                            count: 1,
+                            img: "/imges/1.jpg"
                         },
                     ]
+                }
+            },
+            computed: {
+                total() {
+                    // 想法
+                    // const prod1 = this.cartList[0]['price'] * this.cartList[0]['count']
+                    // const prod2 = this.cartList[1]['price'] * this.cartList[1]['count']
+                    // return prod1 + prod2
+
+                    // for迴圈
+                    // let price = 0
+                    // for (let index = 0; index < this.cartList.length; index++) {
+                    //   price += (this.cartList[index]['price'] * this.cartList[index]['count'])        
+                    // }
+                    // return price
+
+                    // Array.reduce
+                    return this.cartList.reduce((total, item) => total + item.price * item.count, 0);
                 }
             },
             methods: {
