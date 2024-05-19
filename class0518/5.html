@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 5rem;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <button @click="addw">放大</button>
+        <img src="/imges/Acer_Wallpaper_01_3840x2400.jpg" alt="">
+        <img :src="imgUrl" style="width: 200px;" alt="">
+        <img :src="imgUrl" :style="{
+            width: `${widths}rem`,
+            backgroundColor: bg
+        }" alt="">
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    imgUrl:"/imges/Acer_Wallpaper_01_3840x2400.jpg",
+                    bg:'#999',
+                    widths: 2
+                }
+            },
+            methods: {
+                addw() {
+                    if (this.widths === 9) return
+                    // 每次按按一下圖片加大
+                    this.widths += 1
+                    this.bg = `#${widths}${widths}${widths}`
+                }
+            },
+        }).mount("#app")
+    </script>
+
+</body>
+</html>
